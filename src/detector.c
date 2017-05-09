@@ -75,7 +75,12 @@ void train_detector(char *datacfg, char *cfgfile, char *weightfile, int *gpus, i
     clock_t time;
     int count = 0;
     //while(i*imgs < N*120){
+    printf("get_current_batch(net): %d\n", get_current_batch(net));
+    printf("net.max_batches: %d\n", net.max_batches);
+
     while(get_current_batch(net) < net.max_batches){
+        //printf("int while\n");
+        //while(1);
         if(l.random && count++%10 == 0){
             printf("Resizing\n");
             int dim = (rand() % 10 + 10) * 32;

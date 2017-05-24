@@ -525,7 +525,9 @@ void validate_detector_recall(char *cfgfile, char *weightfile)
     fprintf(stderr, "Learning Rate: %g, Momentum: %g, Decay: %g\n", net.learning_rate, net.momentum, net.decay);
     srand(time(0));
 
-    list *plist = get_paths("data/voc.2007.test");
+//    list *plist = get_paths("data/voc.2007.test");
+    //list *plist = get_paths("/home/dj/data/CarPlane/planeval.txt");
+    list *plist = get_paths("/home/dj/data/CarPlane/carval.txt");
     char **paths = (char **)list_to_array(plist);
 
     layer l = net.layers[net.n-1];
@@ -539,7 +541,8 @@ void validate_detector_recall(char *cfgfile, char *weightfile)
     int m = plist->size;
     int i=0;
 
-    float thresh = .001;
+   // float thresh = .001;
+    float thresh = 0.25;
     float iou_thresh = .5;
     float nms = .4;
 
@@ -586,7 +589,9 @@ void validate_detector_recall(char *cfgfile, char *weightfile)
             }
         }
 
-        fprintf(stderr, "%5d %5d %5d\tRPs/Img: %.2f\tIOU: %.2f%%\tRecall:%.2f%%\n", i, correct, total, (float)proposals/(i+1), avg_iou*100/total, 100.*correct/total);
+       // fprintf(stderr, "%5d %5d %5d\tRPs/Img: %.2f\tIOU: %.2f%%\tRecall:%.2f%%\n", i, correct, total, (float)proposals/(i+1), avg_iou*100/total, 100.*correct/total);
+        fprintf(stderr, "ID:%5d Correct:%5d Total:%5d\tRPs/Img: %.2f\tIOU: %.2f%%\tRecall:%.2f%%\t", i, correct, total, (float)proposals/(i+1), avg_iou*100/total, 100.*correct/total);
+fprintf(stderr, "proposals:%5d\tPrecision:%.2f%%\n",proposals,100.*correct/(float)proposals); 
         free(id);
         free_image(orig);
         free_image(sized);

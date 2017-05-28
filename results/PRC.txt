@@ -1,0 +1,67 @@
+ID:  399 Correct: 3817 Total: 3976	RPs/Img: 2550.00	IOU: 78.18%	Recall:96.00%	proposals:1020000	Precision:0.37%
+  399  3817  3976	RPs/Img: 2550.00	IOU: 78.18%	Recall:96.00%
+ID:  399 Correct: 3817 Total: 3976	RPs/Img: 2550.00	IOU: 78.18%	Recall:96.00%	proposals:1020000	Precision:0.37%
+  399  3817  3976	RPs/Img: 2550.00	IOU: 78.18%	Recall:96.00%
+ID:  399 Correct: 3766 Total: 3976	RPs/Img: 1233.86	IOU: 75.78%	Recall:94.72%	proposals:493545	Precision:0.76%
+  399  3766  3976	RPs/Img: 1233.86	IOU: 75.78%	Recall:94.72%
+ID:  399 Correct:    0 Total: 3976	RPs/Img: 0.00	IOU: 0.00%	Recall:0.00%	proposals:    0	Precision:-nan%
+  399     0  3976	RPs/Img: 0.00	IOU: 0.00%	Recall:0.00%
+ID:  399 Correct: 3817 Total: 3976	RPs/Img: 2550.00	IOU: 78.18%	Recall:96.00%	proposals:1020000	Precision:0.37%
+  399  3817  3976	RPs/Img: 2550.00	IOU: 78.18%	Recall:96.00%
+ID:  399 Correct:    0 Total: 3976	RPs/Img: 0.00	IOU: 0.00%	Recall:0.00%	proposals:    0	Precision:-nan%
+  399     0  3976	RPs/Img: 0.00	IOU: 0.00%	Recall:0.00%
+ID:  399 Correct: 3817 Total: 3976	RPs/Img: 2550.00	IOU: 78.18%	Recall:96.00%	proposals:1020000	Precision:0.37%
+  399  3817  3976	RPs/Img: 2550.00	IOU: 78.18%	Recall:96.00%
+ID:  399 Correct: 3766 Total: 3976	RPs/Img: 1233.86	IOU: 75.78%	Recall:94.72%	proposals:493545	Precision:0.76%
+  399  3766  3976	RPs/Img: 1233.86	IOU: 75.78%	Recall:94.72%
+ID:  399 Correct:    0 Total: 3976	RPs/Img: 0.00	IOU: 0.00%	Recall:0.00%	proposals:    0	Precision:-nan%
+  399     0  3976	RPs/Img: 0.00	IOU: 0.00%	Recall:0.00%
+ID:  399 Correct: 3817 Total: 3976	RPs/Img: 2550.00	IOU: 78.18%	Recall:96.00%	proposals:1020000	Precision:0.37%
+  399  3817  3976	RPs/Img: 2550.00	IOU: 78.18%	Recall:96.00%
+ID:  399 Correct:    0 Total: 3976	RPs/Img: 0.00	IOU: 0.00%	Recall:0.00%	proposals:    0	Precision:-nan%
+  399     0  3976	RPs/Img: 0.00	IOU: 0.00%	Recall:0.00%
+ID:  399 Correct: 3817 Total: 3976	RPs/Img: 2550.00	IOU: 78.18%	Recall:96.00%	proposals:1020000	Precision:0.37%
+  399  3817  3976	RPs/Img: 2550.00	IOU: 78.18%	Recall:96.00%
+ID:  399 Correct: 3766 Total: 3976	RPs/Img: 1233.86	IOU: 75.78%	Recall:94.72%	proposals:493545	Precision:0.76%
+  399  3766  3976	RPs/Img: 1233.86	IOU: 75.78%	Recall:94.72%
+ID:  399 Correct: 3817 Total: 3976	RPs/Img: 2550.00	IOU: 78.18%	Recall:96.00%	proposals:1020000	Precision:0.37%
+  399  3817  3976	RPs/Img: 2550.00	IOU: 78.18%	Recall:96.00%
+ID:  399 Correct: 3817 Total: 3976	RPs/Img: 2550.00	IOU: 78.18%	Recall:96.00%	proposals:1020000	Precision:0.37%
+  399  3817  3976	RPs/Img: 2550.00	IOU: 78.18%	Recall:96.00%
+ID:  399 Correct:    0 Total: 3976	RPs/Img: 0.00	IOU: 0.00%	Recall:0.00%	proposals:    0	Precision:-nan%
+  399     0  3976	RPs/Img: 0.00	IOU: 0.00%	Recall:0.00%
+ID:  399 Correct:    0 Total: 3976	RPs/Img: 0.00	IOU: 0.00%	Recall:0.00%	proposals:    0	Precision:-nan%
+  399     0  3976	RPs/Img: 0.00	IOU: 0.00%	Recall:0.00%
+ID:  399 Correct: 3766 Total: 3976	RPs/Img: 1233.86	IOU: 75.78%	Recall:94.72%	proposals:493545	Precision:0.76%
+  399  3766  3976	RPs/Img: 1233.86	IOU: 75.78%	Recall:94.72%
+ID:  399 Correct: 3817 Total: 3976	RPs/Img: 2550.00	IOU: 78.18%	Recall:96.00%	proposals:1020000	Precision:0.37%
+  399  3817  3976	RPs/Img: 2550.00	IOU: 78.18%	Recall:96.00%
+ID:  399 Correct:    0 Total: 3976	RPs/Img: 0.00	IOU: 0.00%	Recall:0.00%	proposals:    0	Precision:-nan%
+  399     0  3976	RPs/Img: 0.00	IOU: 0.00%	Recall:0.00%
+ID:  399 Correct: 3817 Total: 3976	RPs/Img: 2550.00	IOU: 78.18%	Recall:96.00%	proposals:1020000	Precision:0.37%
+  399  3817  3976	RPs/Img: 2550.00	IOU: 78.18%	Recall:96.00%
+ID:  399 Correct: 3817 Total: 3976	RPs/Img: 2550.00	IOU: 78.18%	Recall:96.00%	proposals:1020000	Precision:0.37%
+  399  3817  3976	RPs/Img: 2550.00	IOU: 78.18%	Recall:96.00%
+ID:  399 Correct: 3766 Total: 3976	RPs/Img: 1233.86	IOU: 75.78%	Recall:94.72%	proposals:493545	Precision:0.76%
+  399  3766  3976	RPs/Img: 1233.86	IOU: 75.78%	Recall:94.72%
+ID:  399 Correct: 3766 Total: 3976	RPs/Img: 1233.86	IOU: 75.78%	Recall:94.72%	proposals:493545	Precision:0.76%
+ID:  399 Correct:    0 Total: 3976	RPs/Img: 0.00	IOU: 0.00%	Recall:0.00%	proposals:    0	Precision:-nan%
+ID:  399 Correct: 3817 Total: 3976	RPs/Img: 2550.00	IOU: 78.18%	Recall:96.00%	proposals:1020000	Precision:0.37%
+ID:  399 Correct:    0 Total: 3976	RPs/Img: 0.00	IOU: 0.00%	Recall:0.00%	proposals:    0	Precision:-nan%
+ID:  399 Correct: 3817 Total: 3976	RPs/Img: 2550.00	IOU: 78.18%	Recall:96.00%	proposals:1020000	Precision:0.37%
+ID:  399 Correct: 3766 Total: 3976	RPs/Img: 1233.86	IOU: 75.78%	Recall:94.72%	proposals:493545	Precision:0.76%
+ID:  399 Correct:    0 Total: 3976	RPs/Img: 0.00	IOU: 0.00%	Recall:0.00%	proposals:    0	Precision:-nan%
+ID:  399 Correct: 3817 Total: 3976	RPs/Img: 2550.00	IOU: 78.18%	Recall:96.00%	proposals:1020000	Precision:0.37%
+ID:  399 Correct:    0 Total: 3976	RPs/Img: 0.00	IOU: 0.00%	Recall:0.00%	proposals:    0	Precision:-nan%
+ID:  399 Correct: 3817 Total: 3976	RPs/Img: 2550.00	IOU: 78.18%	Recall:96.00%	proposals:1020000	Precision:0.37%
+ID:  399 Correct: 3766 Total: 3976	RPs/Img: 1233.86	IOU: 75.78%	Recall:94.72%	proposals:493545	Precision:0.76%
+ID:  399 Correct: 3817 Total: 3976	RPs/Img: 2550.00	IOU: 78.18%	Recall:96.00%	proposals:1020000	Precision:0.37%
+ID:  399 Correct: 3817 Total: 3976	RPs/Img: 2550.00	IOU: 78.18%	Recall:96.00%	proposals:1020000	Precision:0.37%
+ID:  399 Correct:    0 Total: 3976	RPs/Img: 0.00	IOU: 0.00%	Recall:0.00%	proposals:    0	Precision:-nan%
+ID:  399 Correct:    0 Total: 3976	RPs/Img: 0.00	IOU: 0.00%	Recall:0.00%	proposals:    0	Precision:-nan%
+ID:  399 Correct: 3766 Total: 3976	RPs/Img: 1233.86	IOU: 75.78%	Recall:94.72%	proposals:493545	Precision:0.76%
+ID:  399 Correct: 3817 Total: 3976	RPs/Img: 2550.00	IOU: 78.18%	Recall:96.00%	proposals:1020000	Precision:0.37%
+ID:  399 Correct:    0 Total: 3976	RPs/Img: 0.00	IOU: 0.00%	Recall:0.00%	proposals:    0	Precision:-nan%
+ID:  399 Correct: 3817 Total: 3976	RPs/Img: 2550.00	IOU: 78.18%	Recall:96.00%	proposals:1020000	Precision:0.37%
+ID:  399 Correct: 3817 Total: 3976	RPs/Img: 2550.00	IOU: 78.18%	Recall:96.00%	proposals:1020000	Precision:0.37%
+ID:  399 Correct: 3766 Total: 3976	RPs/Img: 1233.86	IOU: 75.78%	Recall:94.72%	proposals:493545	Precision:0.76%

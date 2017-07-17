@@ -75,12 +75,7 @@ void train_detector(char *datacfg, char *cfgfile, char *weightfile, int *gpus, i
     clock_t time;
     int count = 0;
     //while(i*imgs < N*120){
-    printf("get_current_batch(net): %d\n", get_current_batch(net));
-    printf("net.max_batches: %d\n", net.max_batches);
-
     while(get_current_batch(net) < net.max_batches){
-        //printf("int while\n");
-        //while(1);
         if(l.random && count++%10 == 0){
             printf("Resizing\n");
             int dim = (rand() % 10 + 10) * 32;
@@ -405,7 +400,9 @@ void validate_detector(char *datacfg, char *cfgfile, char *weightfile, char *out
     fprintf(stderr, "Learning Rate: %g, Momentum: %g, Decay: %g\n", net.learning_rate, net.momentum, net.decay);
     srand(time(0));
 
-    list *plist = get_paths(valid_images);
+   // list *plist = get_paths(valid_images);
+   // printf("valid_iamges:%s\n", valid_images);
+    list *plist = get_paths("/home/dj/data/GFJLchips/test.txt");
     char **paths = (char **)list_to_array(plist);
 
     layer l = net.layers[net.n-1];
@@ -447,9 +444,11 @@ void validate_detector(char *datacfg, char *cfgfile, char *weightfile, char *out
     int i=0;
     int t;
 
-    float thresh = .005;
-    float nms = .45;
-
+   // float thresh = .005;
+   // float thresh = 0.1;
+    float thresh = 0.25;
+   // float nms = .45;
+    float nms = 0.4;
     int nthreads = 4;
     image *val = calloc(nthreads, sizeof(image));
     image *val_resized = calloc(nthreads, sizeof(image));
@@ -515,6 +514,98 @@ void validate_detector(char *datacfg, char *cfgfile, char *weightfile, char *out
     fprintf(stderr, "Total Detection Time: %f Seconds\n", (double)(time(0) - start));
 }
 
+void validate_detector_pr(char *cfgfile, char *weightfile)
+{
+    network net = parse_network_cfg(cfgfile);
+	if(weightfile){
+		load_weights(&net, weightfile);
+	}
+	set_batch_network(&net, 1);
+	fprintf(stderr, "Learning Rate: %g, Momentum: %g, Decay: %g\n", net.learning_rate, net.momentum, net.decay);
+	srand(time(0));
+	for (int i = 0; i < 21; i++)
+	{
+		float tmp = i;
+		float thresh = tmp/20;
+		validate_detector_recall2(cfgfile, weightfile, thresh, net);
+	}
+}
+void validate_detector_recall2(char *cfgfile, char *weightfile, float thresh, network net)
+{
+	//list *plist = get_paths("data/voc.2007.test");
+	list *plist = get_paths("/home/dj/data/CarPlane/test.txt");
+	char **paths = (char **)list_to_array(plist);
+
+	layer l = net.layers[net.n-1];
+	int classes = l.classes;
+
+	int j, k;
+	box *boxes = calloc(l.w*l.h*l.n, sizeof(box));
+	float **probs = calloc(l.w*l.h*l.n, sizeof(float *));
+	for(j = 0; j < l.w*l.h*l.n; ++j) probs[j] = calloc(classes+1, sizeof(float *));
+
+	int m = plist->size;
+	int i=0;
+
+	//float thresh = .001;
+	float iou_thresh = .5;
+	float nms = .4;
+
+	int total = 0;
+	int correct = 0;
+	int proposals = 0;
+	float avg_iou = 0;
+
+	for(i = 0; i < m; ++i){
+		char *path = paths[i];
+		image orig = load_image_color(path, 0, 0);
+		image sized = resize_image(orig, net.w, net.h);
+		char *id = basecfg(path);
+		network_predict(net, sized.data);
+		get_region_boxes(l, sized.w, sized.h, net.w, net.h, thresh, probs, boxes, 1, 0, .5, 1);
+		if (nms) do_nms(boxes, probs, l.w*l.h*l.n, 1, nms);
+
+		char labelpath[4096];
+		find_replace(path, "images", "labels", labelpath);
+		find_replace(labelpath, "JPEGImages", "labels", labelpath);
+		find_replace(labelpath, ".jpg", ".txt", labelpath);
+		find_replace(labelpath, ".JPEG", ".txt", labelpath);
+
+		int num_labels = 0;
+		box_label *truth = read_boxes(labelpath, &num_labels);
+		for(k = 0; k < l.w*l.h*l.n; ++k){
+			if(probs[k][0] > thresh){
+				++proposals;
+			}
+		}
+		for (j = 0; j < num_labels; ++j) {
+			++total;
+			box t = {truth[j].x, truth[j].y, truth[j].w, truth[j].h};
+			float best_iou = 0;
+			for(k = 0; k < l.w*l.h*l.n; ++k){
+				float iou = box_iou(boxes[k], t);
+				if(probs[k][0] > thresh && iou > best_iou){
+					best_iou = iou;
+				}
+			}
+			avg_iou += best_iou;
+			if(best_iou > iou_thresh){
+				++correct;
+			}
+		}
+		fprintf(stderr, "ID:%5d Correct:%5d Total:%5d\tRPs/Img: %.2f\tIOU: %.2f%%\tRecall:%.2f%%\t", i, correct, total, (float)proposals/(i+1), avg_iou*100/total, 100.*correct/total);
+		fprintf(stderr, "proposals:%5d\tPrecision:%.2f%%\n",proposals,100.*correct/(float)proposals); 
+		if (i == (m - 1))
+		{
+			FILE *outpr = fopen("/home/dj/codd/darknet/results/PRC.txt", "a");
+			fprintf(outpr, "ID:%5d Correct:%5d Total:%5d\tRPs/Img: %.2f\tIOU: %.2f%%\tRecall:%.2f%%\t", i, correct, total, (float)proposals/(i+1), avg_iou*100/total, 100.*correct/total);
+			fprintf(outpr, "proposals:%5d\tPrecision:%.2f%%\n",proposals,100.*correct/(float)proposals); 
+		}
+		free(id);
+		free_image(orig);
+		free_image(sized);
+	}
+}
 void validate_detector_recall(char *cfgfile, char *weightfile)
 {
     network net = parse_network_cfg(cfgfile);
@@ -525,9 +616,11 @@ void validate_detector_recall(char *cfgfile, char *weightfile)
     fprintf(stderr, "Learning Rate: %g, Momentum: %g, Decay: %g\n", net.learning_rate, net.momentum, net.decay);
     srand(time(0));
 
-//    list *plist = get_paths("data/voc.2007.test");
-    //list *plist = get_paths("/home/dj/data/CarPlane/planeval.txt");
-    list *plist = get_paths("/home/dj/data/CarPlane/carval.txt");
+    //list *plist = get_paths("data/voc.2007.test");
+   // list *plist = get_paths("/home/dj/data/CarPlane/test.txt");
+   // list *plist = get_paths("/home/dj/data/CarPlane/carval.txt");
+   // list *plist = get_paths("/home/dj/data/CarPlane/planeval.txt");
+    list *plist = get_paths("/home/dj/data/GFJLchips/test.txt");
     char **paths = (char **)list_to_array(plist);
 
     layer l = net.layers[net.n-1];
@@ -541,7 +634,7 @@ void validate_detector_recall(char *cfgfile, char *weightfile)
     int m = plist->size;
     int i=0;
 
-   // float thresh = .001;
+    //float thresh = .001;
     float thresh = 0.25;
     float iou_thresh = .5;
     float nms = .4;
@@ -566,6 +659,7 @@ void validate_detector_recall(char *cfgfile, char *weightfile)
         find_replace(labelpath, ".jpg", ".txt", labelpath);
         find_replace(labelpath, ".JPEG", ".txt", labelpath);
 
+
         int num_labels = 0;
         box_label *truth = read_boxes(labelpath, &num_labels);
         for(k = 0; k < l.w*l.h*l.n; ++k){
@@ -589,9 +683,9 @@ void validate_detector_recall(char *cfgfile, char *weightfile)
             }
         }
 
-       // fprintf(stderr, "%5d %5d %5d\tRPs/Img: %.2f\tIOU: %.2f%%\tRecall:%.2f%%\n", i, correct, total, (float)proposals/(i+1), avg_iou*100/total, 100.*correct/total);
+        //fprintf(stderr, "%5d %5d %5d\tRPs/Img: %.2f\tIOU: %.2f%%\tRecall:%.2f%%\n", i, correct, total, (float)proposals/(i+1), avg_iou*100/total, 100.*correct/total);
         fprintf(stderr, "ID:%5d Correct:%5d Total:%5d\tRPs/Img: %.2f\tIOU: %.2f%%\tRecall:%.2f%%\t", i, correct, total, (float)proposals/(i+1), avg_iou*100/total, 100.*correct/total);
-fprintf(stderr, "proposals:%5d\tPrecision:%.2f%%\n",proposals,100.*correct/(float)proposals); 
+        fprintf(stderr, "proposals:%5d\tPrecision:%.2f%%\n",proposals,100.*correct/(float)proposals); 
         free(id);
         free_image(orig);
         free_image(sized);
@@ -682,6 +776,7 @@ void run_detector(int argc, char **argv)
         fprintf(stderr, "usage: %s %s [train/test/valid] [cfg] [weights (optional)]\n", argv[0], argv[1]);
         return;
     }
+    //char *gpu_list = find_char_arg(argc, argv, "-gpus", 0);
     char *gpu_list = find_char_arg(argc, argv, "-gpus", 0);
     char *outfile = find_char_arg(argc, argv, "-out", 0);
     int *gpus = 0;
@@ -711,7 +806,7 @@ void run_detector(int argc, char **argv)
     int width = find_int_arg(argc, argv, "-w", 0);
     int height = find_int_arg(argc, argv, "-h", 0);
     int fps = find_int_arg(argc, argv, "-fps", 0);
-
+    
     char *datacfg = argv[3];
     char *cfg = argv[4];
     char *weights = (argc > 5) ? argv[5] : 0;
@@ -721,6 +816,7 @@ void run_detector(int argc, char **argv)
     else if(0==strcmp(argv[2], "valid")) validate_detector(datacfg, cfg, weights, outfile);
     else if(0==strcmp(argv[2], "valid2")) validate_detector_flip(datacfg, cfg, weights, outfile);
     else if(0==strcmp(argv[2], "recall")) validate_detector_recall(cfg, weights);
+    else if(0==strcmp(argv[2], "pr")) validate_detector_pr(cfg, weights);
     else if(0==strcmp(argv[2], "demo")) {
         list *options = read_data_cfg(datacfg);
         int classes = option_find_int(options, "classes", 20);

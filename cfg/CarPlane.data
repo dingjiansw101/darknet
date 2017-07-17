@@ -2,5 +2,5 @@ classes= 2
 train  = /home/dj/data/CarPlane/train.txt
 valid  = /home/dj/data/CarPlane/test.txt
 names = data/CarPlane.names
-backup = /home/dj/darknet/Carbackup
+backup = /home/dj/codd/darknet/kbackup
 
